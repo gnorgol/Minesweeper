@@ -156,6 +156,9 @@ MonoBehaviour:
   mineCount: 4
   tilePrefab: {fileID: 2922003577150841171, guid: 37defc4414f0b6a44bdbada56bbb76f8, type: 3}
   mainCamera: {fileID: 963194227}
+  timer: 0
+  flagCount: 0
+  resetButton: {fileID: 2922003577150841171, guid: 1287acfdfbaeb9244bb1abecc9e99933, type: 3}
 --- !u!4 &464779382
 Transform:
   m_ObjectHideFlags: 0

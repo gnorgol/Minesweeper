@@ -22,12 +22,15 @@ public class GridManager : MonoBehaviour
     //Timer variables 
     public float timer;
     //Timer object text
-    public TMPro.TextMeshPro timerText;
+    private TMPro.TextMeshPro timerText;
 
     //Flag count
     public int flagCount;
     //Flag object text
-    public TMPro.TextMeshPro flagText;
+    private TMPro.TextMeshPro flagText;
+
+    // Reset button
+    public GameObject resetButton;
 
 
     private void Awake()
@@ -49,6 +52,7 @@ public class GridManager : MonoBehaviour
         CreateBackground();
         CreateTimer();
         CreateFlagsText();
+        CreateResetButton();
         //Set camera position
         mainCamera.transform.position = new Vector3(width / 2, height / 2, -10);
         //Set camera size
@@ -58,6 +62,17 @@ public class GridManager : MonoBehaviour
     {
         //Update timer only seconds format 000
         timerText.text = ((int)(Time.time - timer)).ToString("000");
+    }
+
+    private void CreateResetButton()
+    {
+        resetButton = Instantiate(resetButton);
+        resetButton.transform.position = new Vector3(width / 2, height , 0);
+        resetButton.transform.localScale = new Vector3(1, 1, 1);
+
+        //Add collider to reset button
+        resetButton.AddComponent<BoxCollider>();
+
     }
 
     public void increaseFlagCount()
@@ -197,5 +212,28 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+    }
+    public void ResetGame()
+    {
+        Debug.Log("Reset game");
+        //reset timer Flag count and tiles and create new grid
+        timer = Time.time;
+        flagCount = 0;
+        flagText.text = flagCount.ToString();
+        timerText.text = "0";
+
+        //Destroy all tiles
+        foreach (Tile tile in allTiles)
+        {
+            Destroy(tile.gameObject);
+        }
+        allTiles.Clear();
+
+        //Create new grid
+        GenerateGrid();
+        PlaceMines();
+        CalculateAdjacentMines();
+
+
     }
 }

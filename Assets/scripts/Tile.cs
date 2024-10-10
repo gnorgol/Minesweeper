@@ -97,15 +97,15 @@ public class Tile : MonoBehaviour
         }
         else
         {
-            // Révéler le nombre de mines adjacentes
-            Debug.Log($"Tile [{x}, {y}] has {adjacentMines} adjacent mines.");
-
             // Si la case n'est pas une mine, afficher le texte correspondant au nombre de mines adjacentes
             textMesh.enabled = true;
 
             // Optionnel: si la tuile n'a aucune mine adjacente, tu peux automatiquement révéler ses voisins
             if (adjacentMines == 0 && !isMine )
             {
+                //Set the tile to color green
+                GetComponent<Renderer>().material.color = Color.green;
+
                 // Appelle une fonction du GridManager pour révéler les cases adjacentes (à implémenter)
                 GridManager.Instance.RevealAdjacentTiles(x, y);
             }
