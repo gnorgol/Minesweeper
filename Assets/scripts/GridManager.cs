@@ -18,6 +18,16 @@ public class GridManager : MonoBehaviour
 
     public static GridManager Instance { get; private set; }
 
+    //Timer variables 
+    public float timer;
+    //Timer object text
+    public TMPro.TextMeshPro timerText;
+
+    //Flag count
+    public int flagCount;
+    //Flag object text
+    public TMPro.TextMeshPro flagText;
+
 
     private void Awake()
     {
@@ -36,10 +46,28 @@ public class GridManager : MonoBehaviour
         PlaceMines();
         CalculateAdjacentMines();
         CreateBackground();
+        CreateTimer();
         //Set camera position
         mainCamera.transform.position = new Vector3(width / 2, height / 2, -10);
         //Set camera size
         mainCamera.orthographicSize = height / 2 + 1;
+    }
+    void Update()
+    {
+        //Update timer only seconds format 000
+        timerText.text = ((int)(Time.time - timer)).ToString("000");
+    }
+
+    private void CreateTimer()
+    {
+        timer = Time.time;
+        timerText = new GameObject("Timer").AddComponent<TMPro.TextMeshPro>();
+        timerText.transform.position = new Vector3(width / 2 - 3, height , 0);
+        timerText.text = "0";
+        timerText.fontSize = 8;
+        timerText.alignment = TMPro.TextAlignmentOptions.Center;
+        timerText.color = Color.red;
+        timerText.enabled = true;
 
     }
 
@@ -52,6 +80,7 @@ public class GridManager : MonoBehaviour
         Background.transform.rotation = Quaternion.Euler(-90, 0, 0);
         Background.GetComponent<Renderer>().material.color = Color.gray;
     }
+
 
     // Génère la grille de tuiles
     void GenerateGrid()
