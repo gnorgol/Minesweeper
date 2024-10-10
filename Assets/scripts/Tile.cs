@@ -15,11 +15,6 @@ public class Tile : MonoBehaviour
     private TextMeshPro textMesh;
 
 
-
-
-
-
-
     private int x, y; // Coordonnées de la tuile
     private bool isFlagged;
 
@@ -89,7 +84,7 @@ public class Tile : MonoBehaviour
     // Révéler le contenu de la tuile (appelé quand le joueur clique dessus)
     public void Reveal(bool isRecursive = false)
     {
-        if (isRevealed)
+        if (isRevealed || isFlagged)
         {
             return;
         }
@@ -135,11 +130,14 @@ public class Tile : MonoBehaviour
             spriteRendererFlag.sprite = flagSprite;
             spriteRendererFlag.enabled = true;
             spriteRendererFlag.sortingOrder = 0;
+
+            GridManager.Instance.increaseFlagCount();
         }
         else
         {
             // Supprimer le sprite de drapeau
             Destroy(spriteRendererFlag.gameObject);
+            GridManager.Instance.decreaseFlagCount();
         }
     }
 

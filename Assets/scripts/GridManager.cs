@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -47,6 +48,7 @@ public class GridManager : MonoBehaviour
         CalculateAdjacentMines();
         CreateBackground();
         CreateTimer();
+        CreateFlagsText();
         //Set camera position
         mainCamera.transform.position = new Vector3(width / 2, height / 2, -10);
         //Set camera size
@@ -56,6 +58,26 @@ public class GridManager : MonoBehaviour
     {
         //Update timer only seconds format 000
         timerText.text = ((int)(Time.time - timer)).ToString("000");
+    }
+
+    public void increaseFlagCount()
+    {
+        flagCount++;
+        flagText.text = flagCount.ToString();
+    }
+    public void decreaseFlagCount() {
+        flagCount--;
+        flagText.text = flagCount.ToString();
+    }
+    private void CreateFlagsText()
+    {
+        flagText = new GameObject("Flags").AddComponent<TMPro.TextMeshPro>();
+        flagText.transform.position = new Vector3(width / 2 + 3, height, 0);
+        flagText.text = flagCount.ToString();
+        flagText.fontSize = 8;
+        flagText.alignment = TMPro.TextAlignmentOptions.Center;
+        flagText.color = Color.red;
+        flagText.enabled = true;
     }
 
     private void CreateTimer()
