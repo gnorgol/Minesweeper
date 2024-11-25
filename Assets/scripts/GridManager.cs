@@ -12,8 +12,6 @@ public class GridManager : MonoBehaviour
 
     private Tile[,] grid; // Grille de tuiles
     private List<Tile> allTiles = new List<Tile>();
-    //Background
-    private GameObject Background;
 
     public static GridManager Instance { get; private set; }
 
@@ -51,7 +49,6 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
         PlaceMines();
         CalculateAdjacentMines();
-        CreateBackground();
         CreateTimer();
         CreateFlagsText();
         CreateResetButton();
@@ -74,7 +71,7 @@ public class GridManager : MonoBehaviour
         resetButton.transform.position = new Vector3(width / 2, height , 0);
 
         //Add collider to reset button
-        resetButton.AddComponent<BoxCollider>();
+        resetButton.AddComponent<BoxCollider2D>();
 
     }
     private void CreateRevealButton()
@@ -83,7 +80,7 @@ public class GridManager : MonoBehaviour
         // Position a gauche de la grid
         RevealButton.transform.position = new Vector3(width, 0,0);
 
-        RevealButton.AddComponent<BoxCollider>();
+        RevealButton.AddComponent<BoxCollider2D>();
 
     }
 
@@ -120,15 +117,7 @@ public class GridManager : MonoBehaviour
 
     }
 
-    private void CreateBackground()
-    {
-        //Create plane 
-        Background = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        Background.transform.position = new Vector3(width / 2, height / 2, 0);
-        Background.transform.localScale = new Vector3(width, height, 1);
-        Background.transform.rotation = Quaternion.Euler(-90, 0, 0);
-        Background.GetComponent<Renderer>().material.color = Color.gray;
-    }
+
 
 
     // Génère la grille de tuiles
@@ -245,8 +234,6 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
         PlaceMines();
         CalculateAdjacentMines();
-
-
     }
 
     public void RevealAllMines()

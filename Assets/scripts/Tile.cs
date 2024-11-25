@@ -71,8 +71,9 @@ public class Tile : MonoBehaviour
         }
         if (GetComponent<Collider>() == null)
         {
-            gameObject.AddComponent<BoxCollider>();
+            gameObject.AddComponent<BoxCollider2D>();
         }
+
     }
 
     // Marquer la tuile comme contenant une mine
@@ -148,10 +149,12 @@ public class Tile : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) // Clic gauche pour révéler
         {
+            Debug.Log("Left click detected on tile at (" + x + ", " + y + ")");
             Reveal();
         }
         else if (Input.GetMouseButtonDown(1)) // Clic droit pour poser un drapeau
         {
+            Debug.Log("Left click detected on tile at (" + x + ", " + y + ")");
             CreateFlag();
         }
     }
