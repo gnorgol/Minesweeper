@@ -84,7 +84,7 @@ public class Tile : MonoBehaviour
     // Révéler le contenu de la tuile (appelé quand le joueur clique dessus)
     public void Reveal(bool isRecursive = false)
     {
-        if (isRevealed || isFlagged)
+        if (isRevealed)
         {
             return;
         }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
@@ -32,6 +33,9 @@ public class GridManager : MonoBehaviour
     // Reset button
     public GameObject resetButton;
 
+    public GameObject RevealButton;
+
+
 
     private void Awake()
     {
@@ -43,6 +47,7 @@ public class GridManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
     void Start()
     {
@@ -53,6 +58,8 @@ public class GridManager : MonoBehaviour
         CreateTimer();
         CreateFlagsText();
         CreateResetButton();
+        CreateRevealButton();
+
         //Set camera position
         mainCamera.transform.position = new Vector3(width / 2, height / 2, -10);
         //Set camera size
@@ -68,10 +75,18 @@ public class GridManager : MonoBehaviour
     {
         resetButton = Instantiate(resetButton);
         resetButton.transform.position = new Vector3(width / 2, height , 0);
-        resetButton.transform.localScale = new Vector3(1, 1, 1);
 
         //Add collider to reset button
         resetButton.AddComponent<BoxCollider>();
+
+    }
+    private void CreateRevealButton()
+    {
+        RevealButton = Instantiate(RevealButton);
+        // Position a gauche de la grid
+        RevealButton.transform.position = new Vector3(width, 0,0);
+
+        RevealButton.AddComponent<BoxCollider>();
 
     }
 
@@ -235,5 +250,16 @@ public class GridManager : MonoBehaviour
         CalculateAdjacentMines();
 
 
+    }
+
+    public void RevealAllMines()
+    {
+        foreach (Tile tile in allTiles)
+        {
+            if (tile.isMine)
+            {
+                tile.Reveal();
+            }
+        }
     }
 }

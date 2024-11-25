@@ -159,6 +159,7 @@ MonoBehaviour:
   timer: 0
   flagCount: 0
   resetButton: {fileID: 2922003577150841171, guid: 1287acfdfbaeb9244bb1abecc9e99933, type: 3}
+  RevealButton: {fileID: 2922003577150841171, guid: 137f09a34bc9a0a4abcdc4114cd4042e, type: 3}
 --- !u!4 &464779382
 Transform:
   m_ObjectHideFlags: 0
